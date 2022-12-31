@@ -1,0 +1,36 @@
+@import '/utilities/_variables';
+
+
+
+
+
+    .todoContainer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      color: $primary-color;
+      margin: 2rem 0;
+      width: 100%;
+      min-height: 100vh;   
+    }
+
+      .addTodoButtonContainer {
+            position: fixed;
+            top: 70%;
+            right: 5%;
+            z-index: 100;
+            cursor: pointer;
+
+
+              .addTodoButton {
+                background: transparent;
+                border-radius: 50%;            
+                color: rgb(213, 13, 13);
+                height: 7rem;
+                width: 7rem;
+              }
+
+      }
+
+
