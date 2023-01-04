@@ -1,54 +1,62 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { Inter } from "@next/font/google";
 import style from "../styles/Home.module.scss";
 import Layout from "../components/Layout";
-import Modal from "../components/Modal";
-import { IoIosAddCircle } from "react-icons/io";
-import { useRouter } from "next/router";
+import { Card } from "../components/Card";
+import Masonry from "react-masonry-css";
+
+import { MdAddCircle } from "react-icons/md";
 import api from "../config/api";
+import { useTodoContext } from "../hooks/useTodosContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ allTodos }) {
-  const [todoState, setTodosState] = useState(null);
+export default function Home({ json }) {
   const [showModal, setShowModal] = useState(false);
-
-  const router = useRouter();
+  const { todos, dispatch } = useTodoContext();
 
   useEffect(() => {
-    if (allTodos) {
-      setTodosState(allTodos);
+    if (json) {
+      dispatch({
+        type: "SET_TODOS",
+        payload: json,
+      });
     }
-  }, [allTodos]);
-
-  console.log(todoState);
+  }, [json, dispatch]);
 
   return (
-    <Layout title="Home page">
-      <div className={style.todoContainer}>
-        {todoState &&
-          todoState.map((todo) => <Modal key={todo._id} todo={todo} />)}
-      </div>
-      <div className={style.addTodoButtonContainer}>
-        <IoIosAddCircle
-          className={style.addTodoButton}
-          onClick={() => router.push("/addModal")}
-        />
+    <Layout title="Home">
+      <div className={style.content}>
+        <Masonry
+          breakpointCols={{
+            default: 3,
+            800: 2,
+            600: 1,
+          }}
+          className={style.my_masonry_grid}
+          columnClassName={style.my_masonry_grid_column}
+        >
+          {todos && todos.map((todo) => <Card key={todo._id} todo={todo} />)}
+        </Masonry>{" "}
+        <Link href="/createTodo" className={style.addTodoButtonContainer}>
+          <MdAddCircle className={style.addTodoButton} />
+        </Link>
       </div>
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  let response = await api.get("/api/todos").then((res) => {
+  let response = await api.get("/todos").then((res) => {
     return res;
   });
 
-  let allTodos = await response.data;
+  const json = await response.data;
 
   return {
     props: {
-      allTodos,
+      json,
     },
   };
 }

@@ -1,0 +1,304 @@
+@import '/utilities/_variables';    
+
+   
+
+    /* ADDTODOMODAL {FORM} STARTS  */
+
+
+
+    .AddTodoModalContainer {
+        width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      
+  
+  
+  
+  
+          .formModalOverlay {
+            background: rgba(0, 0, 0, 0.1);
+            height: 100%;
+            width: 100%;
+            filter: brightness(10px);
+  
+              & .overlayPhoto {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+          }
+  
+          .formModalContainer {
+            background: $white;
+            height: 100%;
+            width: 60%;
+            padding: 4em 2em;
+  
+  
+              form {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+  
+                  .inputContainer {
+                    display: flex;
+                    flex-flow: column-reverse;
+                    // margin-bottom: .5em;
+  
+                      input, label {
+                        transition: all 0.3s;
+                      }
+  
+                      input {
+                        height: 2.5rem;
+                        font-size: 1em;
+                        border: 2px solid $primary-color;
+                        font-family: "Quicksand", sans-serif;
+                        border-radius: 10px;
+                        padding: 0 5px;
+  
+                      }
+  
+                      textarea {
+                        font-size: 1em;
+                        border: 2px solid $primary-color;
+                        font-family: "Quicksand", sans-serif;
+                        border-radius: 10px;
+                        padding: 1rem;
+                        resize: none;
+                      }
+  
+                      
+                      input:placeholder-shown + label,
+                      textarea:placeholder-shown + label 
+                      {
+                        padding-left: 20px;
+                        cursor: text;
+                        max-width: 70%;
+                        transform-origin: left bottom;
+                        transform: translate(0, 1.8rem) scale(1);
+                      }
+  
+                      ::-webkit-input-placeholder {
+                        opacity: 0;
+                        transition: inherit;
+                      }
+  
+  
+                      textarea:focus::-webkit-input-placeholder, 
+                      input:focus::-webkit-input-placeholder {
+                        opacity: 1;
+                        font-size: 1em;
+                        font-family: 'Quicksand', sans-serif;
+                      }
+  
+                      textarea:not(:placeholder-shown) + label,
+                      input:not(:placeholder-shown) + label,
+                      textarea:focus + label, 
+                      input:focus + label {
+                        transform: translate(0, 0) scale(.9);
+                        color: $shadeOfBlue;
+                      }
+  
+                      textarea:focus,
+                      input:focus {
+                        outline: 0;
+                        border: 2px solid $shadeOfBlue;
+                        color: $primary-color;
+                        padding-bottom: .1em;
+                      }
+  
+  
+                  }
+  
+  
+                  .priorityContainer {
+                      display: flex;
+                      flex-direction: column;
+                      gap: 1.5rem;
+                      padding: 2rem 1rem;
+                      border: 2px solid $primary-color;
+                      border-radius: 10px;
+                      position: relative;
+  
+  
+                    &:active {
+                      border: 2px solid $shadeOfBlue
+                    }
+  
+  
+                        & span {
+                          background: #FFF;
+                          position: absolute;
+                          top: -10px;
+                          left: 21px;
+                          font-size: 1em;
+                        }
+  
+                        & .priorityGroup {
+                          display: flex;
+                          flex-direction: column;
+                          gap: .7rem;
+  
+                              & div {
+                                display: flex;
+                                align-items: center;
+                              }
+  
+  
+                              & div input[type="radio"] {
+                                appearance: none;
+                                width: 1.5rem;
+                                height: 1.5rem;
+                                border: 2px solid $primary-color;
+                                border-radius: 50%;
+  
+  
+                                  
+                              }
+  
+                             & input[type="radio"]:checked {
+                                border: 2px solid $primary-color;
+                                height: 1.5rem;
+                                width: 1.5rem;
+                                position: relative;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+  
+                                  &::after {
+                                    content: '';
+                                    position: absolute;
+                                    height: 1rem;
+                                    width: 1rem;
+                                    background: $primary-color;
+                                    border-radius: 50%;
+                                  } 
+                              }
+                        }
+                  }
+  
+  
+                 
+  
+                  
+  
+  
+                  .buttonContainer {
+                      width: 40%;
+                      margin: 1rem 0;
+  
+  
+                        & .button {
+                          width: 100%;
+                          height: auto;
+                          border: none;
+                          border-radius: 10px;
+                          background-color: $primary-color;
+                          color: $white;
+                          font-size: 1rem;
+                          font-weight: 600;
+                          padding: 1rem 1rem;
+                          cursor: pointer;
+                          transition: all 0.2s ease-in-out;
+  
+  
+  
+                            &:hover {
+                              background: transparent;
+                              color: $primary-color;
+                              border: 2px solid $primary-color;
+                            }
+                      }
+  
+                      & .button:disabled {
+                        display: none;
+                      }
+  
+                      
+                  }
+  
+                  .errorContainer {
+                    display: flex;
+                    flex-direction: column;
+                    background: rgba(255, 0, 0, 0.2);
+                    width: 100%;
+                    height: 3rem;
+                    border: 2px solid rgba(255, 0, 0, 0.703);
+                    border-radius: 10px;
+                    text-align: center;
+                    padding: 1rem 0;
+  
+  
+                         
+  
+  
+                          .errorText {
+                          color: rgba(255, 0, 0, 0.631);
+                          font-size: 16px;
+                          font-family: 'Quicksand', sans-serif;
+                          font-style: italic;
+                          text-align: center;
+                        }
+  
+                        
+                  }
+                  
+                  
+                 
+  
+  
+                 
+  
+  
+  
+                  
+              }
+  
+  
+              form.error {
+  
+                
+  
+                label {
+                  color: $error;
+                }
+  
+                input, textarea, .priorityContainer {
+                  border: 2px solid $error;
+                }
+  
+                .priorityContainer {
+  
+                  span {
+                    color: $error;
+                  }
+  
+                    & .priorityGroup  {
+                    
+                      & div { 
+                        
+                          input[type="radio"] {
+                            border: 2px solid $error;
+                          }
+  
+                          label {
+                            color: $primary-color;
+                          }
+  
+                      }
+                    }
+                  }
+  
+  
+                  
+                
+              }
+          }
+      }
+  
+  
+  
+  
+    /*  ADDTODOMODAL ENDS     */   

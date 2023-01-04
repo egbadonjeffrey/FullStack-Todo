@@ -6,17 +6,17 @@ import api from "../config/api";
 import style from "../styles/Form.module.scss";
 
 import ModalBG from "../public/image/bg/Modal-bg.jpg";
-import UpdateBG from "../public/image/bg/update-bg.jpg";
+import { useTodoContext } from "../hooks/useTodosContext";
 
-const Modal = () => {
+const CreateTodoModal = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
   const [error, setError] = useState(null);
 
   const [emptyFields, setEmptyFields] = useState([]);
+  const { dispatch } = useTodoContext();
 
-  console.log(state);
   const completedTask = false;
 
   const router = useRouter();
@@ -32,7 +32,36 @@ const Modal = () => {
     setPriority(e.target.value);
   };
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await api
+      .post("/todos", {
+        title,
+        description,
+        priority,
+        completedTask,
+      })
+      .then((res) => {
+        setTitle("");
+        setDescription("");
+        setPriority("");
+        setError("");
+        setEmptyFields([]);
+        const json = res.data;
+        dispatch({
+          type: "POST_TODO",
+          payload: json,
+        });
+
+        router.push("/");
+      })
+      .catch((error) => {
+        const jsonError = error.response.data;
+        setError(jsonError.error);
+        setEmptyFields(jsonError.emptyFields);
+      });
+  };
 
   return (
     <div className={style.AddTodoModalContainer}>
@@ -143,4 +172,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default CreateTodoModal;

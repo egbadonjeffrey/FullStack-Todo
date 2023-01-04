@@ -1,0 +1,22 @@
+@import '/utilities/_variables';    
+
+
+/* FOOTER START */
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+
+
+
+        span {
+            font-size: 32px;
+            font-weight: 700;
+        }
+}
+
+
+/* FOOTER ENDS */

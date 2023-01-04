@@ -1,0 +1,63 @@
+@import '/utilities/_variables';    
+
+
+
+
+// NAVBAR STARTS
+
+
+.innerNavbar {
+    width: 80%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+
+        span {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+
+        ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 500;
+
+                li {
+                    margin-left: 1rem;
+                    list-style: none;
+
+                        a {
+                            text-decoration: none;
+                            color: $white;
+                        }
+                }
+        }
+}
+
+.mobileMenu {
+    background: $primary-color;
+    position: absolute;
+    right: 0;
+    width: 30%;
+    height: calc(100% - 12rem);
+    z-index: 999;
+
+        ul {
+            list-style-type: none;
+
+                a {
+                    text-decoration: none;
+                    color: $white;
+                }
+            
+        }
+}
+
+
+// NAVBAR ENDS

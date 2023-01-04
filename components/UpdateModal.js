@@ -3,69 +3,52 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import api from "../config/api";
-import style from "../styles/Components.module.scss";
+import style from "../styles/Form.module.scss";
 
 import ModalBG from "../public/image/bg/Modal-bg.jpg";
+import { useTodoContext } from "../hooks/useTodosContext";
 
-const AddTodoModal = ({ allTodos }) => {
-  const [todoState, setTodoState] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
-  const [completedTask, setCompletedTask] = useState(false);
+const CreateTodoModal = () => {
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateDescription, setUpdateDescription] = useState("");
+  const [updatePriority, setUpdatePriority] = useState("");
   const [error, setError] = useState(null);
+
+  // const [emptyFields, setEmptyFields] = useState([]);
+  const { dispatch } = useTodoContext();
+
+  const completedTask = false;
 
   const router = useRouter();
 
-  useEffect(() => {
-    setTodoState(allTodos);
-  }, [allTodos]);
+  const handleRetryForm = () => {
+    if (updateTitle || description !== "") {
+      setError(null);
+    }
+  };
 
   const handlePriority = (e) => {
     console.log(e.target.value);
     setPriority(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const todo = {
-      title,
-      description,
-      priority,
-      completedTask,
-    };
-
-    const response = await api
-      .post("/api/todos", {
-        title,
-        description,
-        priority,
-        completedTask,
+    await api
+      .patch("/todos", {
+        updateTitle,
+        updateDescription,
+        updatePriority,
       })
-      .then(
-        (res) => {
-          return res;
-        },
-        (error) => {
-          setError(error.message);
-        }
-      );
-
-    const json = await response.data;
-
-    if (!response.ok) {
-      setError(json.error);
-    }
-
-    if (response) {
-      setTitle("");
-      setDescription("");
-      setPriority("");
-      setCompletedTask(false);
-      setError(null);
-      router.push("/");
-    }
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        const jsonError = error.response.data;
+        setError(jsonError.error);
+        // setEmptyFields(jsonError.emptyFields);
+      });
   };
 
   return (
@@ -88,18 +71,21 @@ const AddTodoModal = ({ allTodos }) => {
         </div>
       </div>
 
-      <div className={style.formModalContainer}>
+      <div className={style.formModalContainer} onClick={handleRetryForm}>
         <h2>Add Todo</h2>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleUpdate}
+          // className={emptyFields.includes("priority") ? style.error : ""}
+        >
           <div className={style.inputContainer}>
             <input
               type="text"
               id="title"
               placeholder="Pick up Grocies"
-              onChange={(e) => setTitle(e.target.value)}
-              value={title}
+              onChange={(e) => setUpdateTitle(e.target.value)}
+              value={updateTitle}
             />
-            <label htmlFor="title">Title</label>
+            <label htmlFor="title">Update Title</label>
           </div>
           <div className={style.inputContainer}>
             <textarea
@@ -108,13 +94,13 @@ const AddTodoModal = ({ allTodos }) => {
               cols={10}
               rows={5}
               placeholder="Pick up Grocies at market square"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
+              onChange={(e) => setUpdateDescription(e.target.value)}
+              value={updateDescription}
             />
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Update Description</label>
           </div>
           <div className={style.priorityContainer}>
-            <span>Set Priority</span>
+            <span>Update Priority</span>
             <div className={style.priorityGroup}>
               <div>
                 <input
@@ -122,7 +108,7 @@ const AddTodoModal = ({ allTodos }) => {
                   id="low"
                   name="priority"
                   value="low"
-                  checked={priority === "low"}
+                  checked={updatePriority === "low"}
                   onChange={handlePriority}
                 />
                 <label htmlFor="low">Low</label>
@@ -134,7 +120,7 @@ const AddTodoModal = ({ allTodos }) => {
                   id="medium"
                   name="priority"
                   value="medium"
-                  checked={priority === "medium"}
+                  checked={updatePriority === "medium"}
                   onChange={handlePriority}
                 />
                 <label htmlFor="medium">Medium</label>
@@ -146,7 +132,7 @@ const AddTodoModal = ({ allTodos }) => {
                   id="high"
                   name="priority"
                   value="high"
-                  checked={priority === "high"}
+                  checked={updatePriority === "high"}
                   onChange={handlePriority}
                 />
                 <label htmlFor="high">High</label>
@@ -155,14 +141,17 @@ const AddTodoModal = ({ allTodos }) => {
           </div>
 
           <div className={style.buttonContainer}>
-            <button type="submit" className={style.button}>
-              Add Todo
+            <button
+              type="submit"
+              className={style.button}
+              disabled={error && true}
+            >
+              Update Todo
             </button>
           </div>
-
           {error && (
             <div className={style.errorContainer}>
-              <span className={style.error}>{error}</span>
+              <span className={style.errorText}>{error}</span>
             </div>
           )}
         </form>
@@ -171,18 +160,4 @@ const AddTodoModal = ({ allTodos }) => {
   );
 };
 
-export default AddTodoModal;
-
-export async function getServerSideProps() {
-  let res = await fetch("/api/todos", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  let allTodos = await res.json();
-
-  return {
-    props: { allTodos },
-  };
-}
+export default CreateTodoModal;

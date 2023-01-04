@@ -1,0 +1,115 @@
+@import '/utilities/_variables';    
+
+
+
+
+
+
+  .card {
+    background: $white;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    position: relative;
+    margin: 1.5rem 0.5rem;
+    padding: 2rem 2rem;
+    box-shadow: 2px 2px 5px rgba(120, 120, 120, 0.2);
+
+    .cardLink {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+
+
+            & div {
+
+                .title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    margin-bottom: 0;
+                }
+                .description {
+                    font-style: italic;
+                    font-size: 17px;
+                    font-weight: 400;
+                    margin-top: 10px;
+                }
+
+                .createdAt {
+                    font-size: 12px;
+                    font-weight: 300;
+                    font-style: oblique;
+                    color: $ash;
+
+                }
+            }
+
+    }
+        .interactiveBtn {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            align-items: center;
+            justify-content: flex-end;
+        
+
+
+            .toggleContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 1.2rem;
+                width: 1.2rem;
+                border-radius: 50%;
+                border: 1px solid $primary-color;
+                cursor: pointer;
+
+
+                    .check {
+                        background: $primary-color;
+                        color: $white;
+                        height: .8rem;
+                        width: .8rem;
+                        border-radius: 50%;
+                    }
+
+                    .check.not_active {
+                        display: none;
+                    }
+            }
+                    
+                   
+                    
+       
+                .deleteContainer {
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    cursor: pointer;
+
+                        .delete {
+                        height: inherit;
+                        width: inherit;
+
+                            &:hover {
+                                color: $error;
+                            }
+                        }
+                }
+        
+            }
+
+        .title, .description, .toggle {
+            margin-top: .5rem;
+        }
+
+    
+    
+
+}   
+
+
+      
+
+           
+            
