@@ -1,30 +1,33 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import style from "../styles/Layout.module.scss";
+import { useModalContext } from "../hooks/useModalContext";
 
 const Layout = ({ title, children }) => {
+  const { modal } = useModalContext();
   const router = useRouter();
-  // const hideNav = router.pathname === `/[id]` ?
-  const showFooter = router.pathname === `/[id]` ? false : true;
+
+  const remove = router.pathname === `/[id]` ? true : false;
+  const createTodo = modal ? true : false;
 
   return (
     <div className={style.container}>
       <Head>
         <title> {title ? title + " - Scarlett" : "Scarlett"} </title>
-        <meta name="description" content="Crypto Investment Website" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={style.navbarContainer}>
-        <Navbar />
-      </header>
+      {!createTodo && (
+        <div className={style.navbarContainer}>
+          <Navbar />
+        </div>
+      )}
 
       {children}
 
-      {showFooter && (
+      {!remove && !createTodo && (
         <footer className={style.footerContainer}>
           <Footer />
         </footer>

@@ -1,15 +1,24 @@
 @import '../utilities/_variables';
 
+.overLay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    z-index: 98;
+}
 
   .stickyMenu {
     position: sticky;
-    top: calc(100% - 100%);
+    top: 0;
     background: $white;
     min-height: 10vh;
     width: 100%;
     padding: 1rem 0;
     box-shadow: 2px 2px 5px rgba(120, 120, 120, 0.2);
-    z-index: 99;
+    z-index: 97;
 
         .stickyMenuContainer {
             position: relative;
@@ -34,23 +43,29 @@
 
                             .logoContainer {
                                 object-fit: contain;
-                                width: 5vw;
-                                height: 4rem;
+                                width: auto;
+                                height: auto;
 
                                     .logoImage {
                                         color: $shadeOfBlue;
-                                        width: 100%;
-                                        height: 100%;
+
+                                       
                                     }
                             }
 
                             .docName {
-                                align-self: flex-end;
+                                align-self: center;
                                 font-size: 20px;
                                 font-weight: 600;
                                 padding-top: 1rem;
                                 margin-bottom: .2rem;
+
+                                @media screen and (max-width: 800px) {
+                                    padding-top: 1rem;
+                                }
                             }
+
+
                     }
 
                     .docModeDetails {
@@ -62,12 +77,31 @@
                         gap: 2rem;
 
 
+                            .lastEdit {
+                                font-style: italic;
+                            }
+
+                        @media screen and (max-width: 500px) {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+
+
+                        @media screen and (max-width: 800px) { 
+                            font-size: 12px;
+                        }
+
+
                             .docMode {
                                 position: relative;
                                 width: auto;
-                                font-size: 14px;
-                                font-weight: 500;
+                                font-weight: 600;
                                 color: rgba(22, 22, 182, 0.885);
+                                z-index: 999;
+                                
+                                // @media screen and (max-width: 800px) { 
+                                //     font-size: 10px;
+                                // }
 
                                         .menuButton {
                                             background: rgba(66,133,244,0.15);
@@ -91,6 +125,11 @@
                                             transition: all 200ms ease-in;
                                             box-shadow: $boxshadow;
 
+                                            @media screen and (max-width: 500px) {
+                                            top: 0;
+                                            left: 6rem;
+                                            }
+
                                                 & div {
                                                     display: flex;
                                                     flex-direction: column;
@@ -103,7 +142,7 @@
                                                         }
 
                                                         & span:first-of-type {
-                                                            font-size: 16px;
+                                                            font-size: 14px;
                                                             font-weight: 500;
                                                         }
 
@@ -124,77 +163,36 @@
                             position: relative;
                             width: auto;
                             font-size: 14px;
-                            font-weight: 500;
+                            font-weight: 600;
                             color: rgba(22, 22, 182, 0.885);
-                            cursor: pointer;
+                            cursor: not-allowed;
+                            z-index: 99;
 
-                            & > span {
+                            @media screen and (max-width: 800px) { 
+                                font-size: 12px;
+                            }
+
+                            & > .priorityValue {
                                 background: rgba(66,133,244,0.15);
                                 border-radius: 5px;
                                 width: auto;
                                 padding: .5rem 1rem;
                                 text-align: left;
+
+                                    & span.low {
+                                        color: $orange,
+                                    }
+                                    & span.medium {
+                                        color: $darkBlue,
+                                    }
+                                    & span.high {
+                                        color: $red,
+                                    }
                             }
 
-
-                            & div {
-                                text-align: center;
-                            }
+                           
 
 
-                            .priorityList {
-                                background: #FFF;
-                                display: flex;
-                                flex-direction: column;
-                                position: absolute;
-                                top: 2rem;
-                                left: 0;
-                                width: 13rem;
-                                box-shadow: $boxshadow;
-
-
-                                   & .high, .medium, .low {
-                                        position: relative;
-                                        display: flex;
-                                        flex-direction: row;
-                                        align-items: center;
-                                        padding: .7rem 1rem;
-                                        gap: .5rem;
-                                        cursor: pointer;
-                                        color: $ashText;
-
-                                            &:hover {
-                                                background: rgba(204, 204, 204, 0.339);
-                                            }
-
-
-                                            & .priorityRadioBtn {
-                                                position: relative;
-                                                display: flex;
-                                                justify-content: center;
-                                                align-items: center;
-                                                height: 1.5rem;
-                                                width: 1.5rem;
-                                                border: 2px solid $primary-color;
-                                                border-radius: 50%;
-                                            }
-
-                                            & .priorityRadioBtn.checked {
-                                                
-
-                                                &::after {
-                                                    content: '';
-                                                    position: absolute;
-                                                    height: 1rem;
-                                                    width: 1rem;
-                                                    border-radius: 50%;
-                                                    background:  $primary-color;
-                                                }
-                                            }
-                                   }
-
-                                    
-                            }
                     }
 
                     }
@@ -204,8 +202,8 @@
             .profilePriority {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                justify-content: flex-start;
+                align-items: flex-start;
                 gap: 1rem;
 
                     .profile {
@@ -220,6 +218,12 @@
                         color: $white;
                         object-fit: contain;
                         font-size: 2rem;
+
+                        @media screen and (max-width: 500px) {
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            font-size: 1.5rem;
+                        }
                     }
 
 
@@ -240,19 +244,48 @@
     position: relative;
     min-height: 75vh;
     width: 80%;
-    margin: 0 auto; 
+    margin: 2rem auto;
 
 
         .card {
-            background: $white;
+            position: relative;
+            background: antiquewhite;
             display: flex;
             flex-direction: column;
-            width: 80%;
+            width: auto;
             min-height: 70vh;
             position: relative;
-            margin: 1.5rem 0;
             padding: 4rem 5rem;
+            border: 2px solid $red;
             box-shadow: $boxshadow;
+
+
+                &::before {
+                    position: absolute;
+                    content: '';
+                    top: 3rem;
+                    left: 3rem;
+                    width: 20rem;
+                    height: 20rem;
+                    border-radius: 50%;
+                    z-index: 1;
+                }
+
+
+                &::after {
+                    position: absolute;
+                    content: '';
+                    bottom: 3rem;
+                    right: 3rem;
+                    width: 10rem;
+                    height: 10rem;
+                    border-radius: 50%;
+
+                }
+
+            @media screen and (max-width: 800px) {
+                padding: 2rem 2rem;
+            }
 
                     .interactiveBtn {
                         display: flex;
@@ -260,33 +293,43 @@
                         margin-bottom: 2rem;
                         gap: 1rem;
                         align-items: center;
-                        justify-content: flex-start;
+                        justify-content: flex-end;
+
+                        
+                        
+                         
                     
             
             
-                        .toggleContainer {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            height: 2rem;
-                            width: 2rem;
-                            border-radius: 50%;
+                         input[type="checkbox"] {
+
+                            appearance: none;
+                            width: 1.5rem;
+                            height: 1.5rem;
                             border: 2px solid $primary-color;
+                            border-radius: 50%;
                             cursor: pointer;
-            
-            
-                                .check {
-                                    background: $primary-color;
-                                    color: $white;
-                                    height: 1.5rem;
-                                    width: 1.5rem;
-                                    border-radius: 50%;
-                                }
-            
-                                .check.not_active {
-                                    display: none;
-                                }
                         }
+
+
+                        // &  input[type="checkbox"]:checked {
+                        //     border: 2px solid $primary-color;
+                        //     height: 1.5rem;
+                        //     width: 1.5rem;
+                        //     position: relative;
+                        //     display: flex;
+                        //     justify-content: center;
+                        //     align-items: center;
+          
+                        //       &::after {
+                        //         content: '';
+                        //         position: absolute;
+                        //         height: 1rem;
+                        //         width: 1rem;
+                        //         background: $primary-color;
+                        //         border-radius: 50%;
+                        //       } 
+                        //   }
                                 
                             
                                 
@@ -314,27 +357,39 @@
                             font-size: 20px;
                             font-weight: 600;
                             margin-bottom: 0;
+                            z-index: 2;
+
+                            @media screen and (max-width: 500px) {
+                                font-size: 18px;
+                            }
                         }
                         .description {
                             font-style: italic;
                             font-size: 17px;
                             font-weight: 400;
                             margin-top: 10px;
+                            z-index: 2;
+
+                            @media screen and (max-width: 500px) {
+                                font-size: 14px;
+                            }
                         }
 
                         .createdAt {
                             font-size: 12px;
                             font-weight: 300;
                             font-style: oblique;
-                            color: $ash;
+                            color: $ashText;
 
                         }              
 
 
                     & input {
+                        background: transparent;
                         height: 2.5rem;
                         outline: none;
                         border: none;
+                        border-bottom: 2px solid $primary-color;
                         font-size: 1.4rem;
                         font-weight: 400;
                         font-family: 'Quicksand', sans-serif;
@@ -342,12 +397,62 @@
 
 
                     & textarea {
+                        background: transparent;
                         outline: none;
                         border: none;
+                        border-bottom: 2px solid $primary-color;
                         font-size: 1.2rem;
                         font-weight: 300;
                         font-family: 'Quicksand', sans-serif;
+                        resize: none;
+                        margin: 4rem 0;
                     }
+
+
+                    .priorityGroup {
+                        display: flex;
+                        flex-direction: row;
+                        gap: .7rem;
+                        margin-bottom: 3rem;
+            
+                            & div {
+                              display: flex;
+                              align-items: center;
+                              gap: .3rem;
+                            }
+            
+            
+                            & div input[type="radio"] {
+                              appearance: none;
+                              width: 1.5rem;
+                              height: 1.5rem;
+                              border: 2px solid $primary-color;
+                              border-radius: 50%;
+            
+            
+                                
+                            }
+            
+                           &  input[type="radio"]:checked {
+                              border: 2px solid $primary-color;
+                              height: 1.5rem;
+                              width: 1.5rem;
+                              position: relative;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+            
+                                &::after {
+                                  content: '';
+                                  position: absolute;
+                                  height: 1rem;
+                                  width: 1rem;
+                                  background: $primary-color;
+                                  border-radius: 50%;
+                                } 
+                            }
+                      }
+            
             }
 
             .updateButton {
@@ -355,12 +460,11 @@
                 color: $white;
                 width: 20%;
                 height: 2.5rem;
-                border: $primary-color;
                 outline: none;
                 font-size: 1rem;
-                font-weight: 400;
+                font-weight: 500;
                 border-radius: 10px;
-                transition: all 200ms ease-in-out;
+                transition: all 200ms ease;
 
 
                     &:hover {
@@ -372,7 +476,386 @@
             }
 
 
+
         }
 
+        .card.low {
+            // background: $orange;
+            color: $primary-color;
+            border: 2px solid $orange;
+
+            &::before {
+                background: $orange;
+            }
+
+            &::after {
+                background: $orange;
+            }
+
+
+
+                .interactiveBtn {
+
+                        input[type="checkbox"] {
+                            
+                            border: 2px solid $orange;  
+                        }
+
+                        &  input[type="checkbox"]:checked {
+                            border: 2px solid $orange;
+                            height: 1.5rem;
+                            width: 1.5rem;
+                            position: relative;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+          
+                              &::after {
+                                content: '';
+                                position: absolute;
+                                height: 1rem;
+                                width: 1rem;
+                                background: $orange;
+                                border-radius: 50%;
+                              } 
+                          }
+
+
+                }
+
+
+                .todoDetails {
+                    z-index: 2;
+
+
+
+                    input{
+                        border-bottom: 2px solid $orange;
+                    }
+
+                    textarea {
+                        border-bottom: 2px solid $orange;
+                    }
+
+
+                        
+                }
+
+
+                .priorityGroup {
+
+
+
+                    & div input[type="radio"] {
+                        appearance: none;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        border: 2px solid $orange;
+                        border-radius: 50%;
+      
+      
+                          
+                      }
+      
+                     &  input[type="radio"]:checked {
+                        border: 2px solid $orange;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+      
+                          &::after {
+                            content: '';
+                            position: absolute;
+                            height: 1rem;
+                            width: 1rem;
+                            background: $orange;
+                            border-radius: 50%;
+                          } 
+                      }
+                    
+
+                }
+
+
+            
+            
+
+                .updateButton {
+                    background: $white;
+                    color: $orange;
+                    border: $orange;
+                    outline: none;
+                    transition: all 300ms ease;
+
+                        &:hover {
+                            background: $orange;
+                            color: $white;
+                            font-weight: 500;
+                            border: 2px solid $white;
+                            transition: all 300ms ease;
+                        }
+                }
+        }
+        .card.medium {
+             // background: $orange;
+             color: $primary-color;
+             border: 2px solid $darkBlue;
+
+             &::before {
+                 background: $darkBlue;
+             }
+ 
+             &::after {
+                 background: $darkBlue;
+             }
+ 
+ 
+ 
+                 .interactiveBtn {
+ 
+                    input[type="checkbox"] {
+                            
+                        border: 2px solid $darkBlue;  
+                    }
+
+                    &  input[type="checkbox"]:checked {
+                        border: 2px solid $darkBlue;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+      
+                          &::after {
+                            content: '';
+                            position: absolute;
+                            height: 1rem;
+                            width: 1rem;
+                            background: $darkBlue;
+                            border-radius: 50%;
+                          } 
+                      }
+ 
+ 
+                 }
+ 
+ 
+                 .todoDetails {
+                        z-index: 2;
+ 
+ 
+                     input{
+                         border-bottom: 2px solid $white;
+                     }
+ 
+                     textarea {
+                         border-bottom: 2px solid $white;
+                     }
+ 
+ 
+                         
+                 }
+ 
+ 
+                 .priorityGroup {
+ 
+ 
+ 
+                     & div input[type="radio"] {
+                         appearance: none;
+                         width: 1.5rem;
+                         height: 1.5rem;
+                         border: 2px solid $darkBlue;
+                         border-radius: 50%;
+       
+       
+                           
+                       }
+       
+                      &  input[type="radio"]:checked {
+                         border: 2px solid $darkBlue;
+                         height: 1.5rem;
+                         width: 1.5rem;
+                         position: relative;
+                         display: flex;
+                         justify-content: center;
+                         align-items: center;
+       
+                           &::after {
+                             content: '';
+                             position: absolute;
+                             height: 1rem;
+                             width: 1rem;
+                             background: $darkBlue;
+                             border-radius: 50%;
+                           } 
+                       }
+                     
+ 
+                 }
+ 
+ 
+             
+             
+ 
+                 .updateButton {
+                     background: $white;
+                     color: $darkBlue;
+                     border: $darkBlue;
+                     outline: none;
+                     transition: all 300ms ease;
+ 
+                         &:hover {
+                             background: $darkBlue;
+                             color: $white;
+                             font-weight: 500;
+                             border: 2px solid $white;
+                             transition: all 300ms ease;
+                         }
+                 }
+        }
+        .card.high {
+            // background: $orange;
+            color: $primary-color;
+            border: 2px solid $red;
+
+            &::before {
+                background: $red;
+            }
+
+            &::after {
+                background: $red;
+            }
+
+
+
+                .interactiveBtn {
+
+                    input[type="checkbox"] {
+                            
+                        border: 2px solid $red;  
+                    }
+
+                    &  input[type="checkbox"]:checked {
+                        border: 2px solid $red;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+      
+                          &::after {
+                            content: '';
+                            position: absolute;
+                            height: 1rem;
+                            width: 1rem;
+                            background: $red;
+                            border-radius: 50%;
+                          } 
+                      }
+
+
+                }
+
+
+                .todoDetails {
+                    z-index: 2;
+
+
+
+                    input{
+                        border-bottom: 2px solid $red;
+                    }
+
+                    textarea {
+                        border-bottom: 2px solid $red;
+                    }
+
+
+                        
+                }
+
+
+                .priorityGroup {
+
+
+
+                    & div input[type="radio"] {
+                        appearance: none;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        border: 2px solid $red;
+                        border-radius: 50%;
+      
+      
+                          
+                      }
+      
+                     &  input[type="radio"]:checked {
+                        border: 2px solid $red;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+      
+                          &::after {
+                            content: '';
+                            position: absolute;
+                            height: 1rem;
+                            width: 1rem;
+                            background: $red;
+                            border-radius: 50%;
+                          } 
+                      }
+                    
+
+                }
+
+
+            
+            
+
+                .updateButton {
+                    background: $white;
+                    color: $red;
+                    border: $red;
+                    outline: none;
+                    transition: all 300ms ease;
+
+                        &:hover {
+                            background: $red;
+                            color: $white;
+                            font-weight: 500;
+                            border: 2px solid $white;
+                            transition: all 300ms ease;
+                        }
+                }
+        }
+
+        .card.completedTodo {
+            background: $ash;
+            color: $ash;
+            z-index: 10; 
+        }
+        .card.medium.completedTodo {
+
+
+            &::before {
+                background: $ash;
+            }
+            &::after {
+                background: $ash;
+            }
+        }
+
+
+        
         
 }

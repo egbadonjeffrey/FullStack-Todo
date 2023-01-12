@@ -18,6 +18,10 @@
         span {
             font-size: 32px;
             font-weight: 700;
+
+            @media screen and (max-width: 800px) {
+                font-size: 20px;
+            }
         }
 
 
@@ -38,26 +42,94 @@
                         }
                 }
         }
+
+
+        
 }
+
+.menuOverlay {
+    position: fixed;
+    background: rgba(126, 126, 126, 0.814);
+    right: -110%;
+    height: 100vh;
+    width: 100vw;
+    transition: all 350ms ease;
+}
+
+.menuOverlay.active {
+    right: 0;
+}
+
 
 .mobileMenu {
-    background: $primary-color;
-    position: absolute;
-    right: 0;
+    background: #1C1C1C;
+    position: fixed;
+    right: -500px;
+    bottom: 0;
     width: 30%;
-    height: calc(100% - 12rem);
-    z-index: 999;
+    height: 100%;
+    z-index: 99;
+    transition: all 500ms ease;
 
-        ul {
-            list-style-type: none;
 
-                a {
-                    text-decoration: none;
-                    color: $white;
+
+
+    @media screen and ( max-width: 800px) {
+        width: 50%;
+    }
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+    }
+
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+                .navIntro {
+                list-style-type: none;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1.5rem;
+                gap: 2rem;
+                font-size: 30px;
+
+                    & span:nth-of-type(2) {
+                        cursor: pointer;
+                    }
                 }
+
+
+               
+                    &  > span {
+                        align-self: left;
+                        margin-left: 3rem;
+
+
+                                a {
+                                    font-size: 20px;
+                                    text-decoration: none;
+                                    color: $white;
+                                }
+                    }
+
             
-        }
+    }
+
+
+    
+  
 }
+
+.active {
+    right: 0;
+}
+  
+
+
 
 
 // NAVBAR ENDS

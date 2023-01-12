@@ -7,6 +7,8 @@ import style from "../styles/Form.module.scss";
 
 import ModalBG from "../public/image/bg/Modal-bg.jpg";
 import { useTodoContext } from "../hooks/useTodosContext";
+import { useModalContext } from "../hooks/useModalContext";
+import e from "cors";
 
 const CreateTodoModal = () => {
   const [title, setTitle] = useState("");
@@ -15,7 +17,15 @@ const CreateTodoModal = () => {
   const [error, setError] = useState(null);
 
   const [emptyFields, setEmptyFields] = useState([]);
-  const { dispatch } = useTodoContext();
+  const { todos, dispatch } = useTodoContext();
+  const { modal, modalDispatch } = useModalContext();
+
+  useEffect(() => {
+    modalDispatch({
+      type: "SET_MODAL",
+      payload: modal,
+    });
+  }, [modal, modalDispatch]);
 
   const completedTask = false;
 
@@ -53,8 +63,10 @@ const CreateTodoModal = () => {
           type: "POST_TODO",
           payload: json,
         });
-
-        router.push("/");
+        modalDispatch({
+          type: "CLOSE_MODAL",
+          payload: false,
+        });
       })
       .catch((error) => {
         const jsonError = error.response.data;
@@ -62,6 +74,8 @@ const CreateTodoModal = () => {
         setEmptyFields(jsonError.emptyFields);
       });
   };
+
+  console.log(todos);
 
   return (
     <div className={style.AddTodoModalContainer}>
@@ -84,6 +98,16 @@ const CreateTodoModal = () => {
       </div>
 
       <div className={style.formModalContainer} onClick={handleRetryForm}>
+        <div
+          onClick={() => {
+            modalDispatch({
+              type: "CLOSE_MODAL",
+              payload: false,
+            });
+          }}
+        >
+          X
+        </div>
         <h2>Add Todo</h2>
         <form
           onSubmit={handleSubmit}
@@ -94,7 +118,7 @@ const CreateTodoModal = () => {
               type="text"
               id="title"
               placeholder="Pick up Grocies"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setTitle(() => e.target.value)}
               value={title}
             />
             <label htmlFor="title">Title</label>
@@ -106,7 +130,7 @@ const CreateTodoModal = () => {
               cols={10}
               rows={5}
               placeholder="Pick up Grocies at market square"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setDescription(() => e.target.value)}
               value={description}
             />
             <label htmlFor="description">Description</label>

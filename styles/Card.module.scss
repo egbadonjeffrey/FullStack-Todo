@@ -37,9 +37,9 @@
 
                 .createdAt {
                     font-size: 12px;
-                    font-weight: 300;
+                    font-weight: 500;
                     font-style: oblique;
-                    color: $ash;
+                    color: $white;
 
                 }
             }
@@ -108,6 +108,21 @@
 
 }   
 
+.card.low {
+    background: $orange;
+}
+.card.medium {
+    background: $darkBlue;
+}
+.card.high {
+    background: $red;
+}
+
+.card.completedTodo {
+    background: $ash;
+    color: $ash;
+    
+}
 
       
 

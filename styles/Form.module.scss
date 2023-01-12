@@ -21,6 +21,10 @@
             height: 100%;
             width: 100%;
             filter: brightness(10px);
+
+            @media screen and (max-width: 800px) {
+              display: none;
+            }
   
               & .overlayPhoto {
                 width: 100%;
@@ -34,6 +38,11 @@
             height: 100%;
             width: 60%;
             padding: 4em 2em;
+
+
+            @media screen and (max-width: 800px) {
+              width: 100%;
+            }
   
   
               form {
